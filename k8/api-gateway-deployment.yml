@@ -17,22 +17,20 @@ spec:
     spec:
       containers:
       - name: api-gateway
-        image: latest/api-gateway/v2
+        image: latest/api-gateway
         imagePullPolicy: Never
         ports:
         - containerPort: 5000
         env:
         - name: NODE_ENV
           value: dev_from_k8
-        # env:
-        # - name: MONGO_INITDB_ROOT_USERNAME
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: mongodb-secret
-        #       key: mongo-root-username
-        # - name: MONGO_INITDB_ROOT_PASSWORD
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: mongodb-secret
-        #       key: mongo-root-password
-
+        - name: service_1_service_name
+          valueFrom: 
+            configMapKeyRef:
+              name: api-ingress-config-map
+              key: service_1_service_name
+        - name: service_2_service_name
+          valueFrom: 
+            configMapKeyRef:
+              name: api-ingress-config-map
+              key: service_2_service_name

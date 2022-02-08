@@ -3,10 +3,10 @@ kind: Ingress
 metadata:
   name: api-gateway-ingress
   namespace: test-namespace
-  annotations:
-   nginx.ingress.kubernetes.io/configuration-snippet: |
-      rewrite /service/1(.*) $1 break;
-      rewrite /service/2(.*) /$1 break;
+  # annotations:
+  #  nginx.ingress.kubernetes.io/configuration-snippet: |
+  #     rewrite /service/1(.*) $1 break;
+  #     rewrite /service/2(.*) /$1 break;
 spec:
   defaultBackend:
     resource:
@@ -17,20 +17,20 @@ spec:
   - host: "kube.com"
     http:
       paths:
-      - path: /service/1
-        pathType: Prefix
-        backend:
-          service:
-            name: service-1-service
-            port:
-              number: 80
-      - path: /service/2
-        pathType: Prefix
-        backend:
-          service:
-            name: service-2-service
-            port:
-              number: 80
+      # - path: /service/1
+      #   pathType: Prefix
+      #   backend:
+      #     service:
+      #       name: service-1-service
+      #       port:
+      #         number: 80
+      # - path: /service/2
+      #   pathType: Prefix
+      #   backend:
+      #     service:
+      #       name: service-2-service
+      #       port:
+      #         number: 80
       - path: /
         pathType: Prefix
         backend:

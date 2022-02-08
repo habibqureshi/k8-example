@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-ingress-config-map
+data:
+  service_1_service_name: service_1_service
+  service_2_service_name: service_2_service
