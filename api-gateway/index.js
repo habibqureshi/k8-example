@@ -10,7 +10,7 @@ console.log('service1baseUrl1',service1BaseUrl);
 console.log('service1baseUrl2',service2BaseUrl);
 
 app.get('/', (req, res) => {        //get requests to the root ("/") will route here
-    console.log(`api gateway`);
+    console.log(`api gateway `);
     res.send({
         message:"Hi from api gateway"
     });      //server responds by sending the index.html file to the client's browser
@@ -19,6 +19,7 @@ app.get('/', (req, res) => {        //get requests to the root ("/") will route 
 
 app.get('/service/1',async (req, res) => {        //get requests to the root ("/") will route here
     try{
+        console.log(`api gateway contacting service 1`);
         console.log(`calling service 1 from api-gateway`,service1BaseUrl);
         const service1Response = await axios.get(service1BaseUrl);
         console.log(`service 1 response1`, service1Response.data);
@@ -36,6 +37,7 @@ app.get('/service/1',async (req, res) => {        //get requests to the root ("/
 
 app.get('/service/2',async (req, res) => {        //get requests to the root ("/") will route here
     try{
+        console.log(`api gateway contacting service 2`);
         console.log(`calling service 2 from api-gateway`);
         const service2Response = await axios.get(service2BaseUrl);
         console.log(`service 2 response`, service2Response.data);

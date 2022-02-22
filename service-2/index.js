@@ -5,6 +5,7 @@ const port = 5000;
 
 
 app.get('/', (req, res) => {        //get requests to the root ("/") will route here
+    console.log("hi from service 2");
     res.send({
         message:"Hi from service 2"
     });      //server responds by sending the index.html file to the client's browser

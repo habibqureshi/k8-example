@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: service-2
-        image: latest/service-2
+        image: service-2/v3
         imagePullPolicy: Never
         ports:
         - containerPort: 5000

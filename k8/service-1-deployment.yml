@@ -17,22 +17,11 @@ spec:
     spec:
       containers:
       - name: service-1
-        image: latest/service-1
+        image: service-1/v3
         imagePullPolicy: Never
         ports:
         - containerPort: 5000
         env:
         - name: NODE_ENV
           value: dev_from_k8_service_1
-        # env:
-        # - name: MONGO_INITDB_ROOT_USERNAME
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: mongodb-secret
-        #       key: mongo-root-username
-        # - name: MONGO_INITDB_ROOT_PASSWORD
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: mongodb-secret
-        #       key: mongo-root-password
 
