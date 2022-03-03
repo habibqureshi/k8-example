@@ -1,0 +1,64 @@
+# apiVersion: autoscaling/v2beta2
+# kind: HorizontalPodAutoscaler
+# metadata:
+#   name: service-1-deployment-hpa
+#   namespace: test-namespace
+# spec:
+#   maxReplicas: 10
+#   minReplicas: 1
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: service-1-deployment
+#   targetCPUUtilizationPercentage: 60
+# behavior:
+#   scaleDown:
+#     stabilizationWindowSeconds: 60
+#     policies:
+#     - type: Percent
+#       value: 10
+#       periodSeconds: 10
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: service-1-deployment-hpa
+  namespace: test-namespace
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: service-1-deployment
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
+  # - type: Resource
+  #   resource:
+  #     name: memory
+  #     target:
+  #       type: AverageValue
+  #       averageValue: 500Mi 
+  # - type: Object
+  #   object:
+  #       metric:
+  #         name: requests-per-second
+  #       describedObject:
+  #         apiVersion: networking.k8s.io/v1beta1
+  #         kind: Ingress
+  #         name: main-route
+  #       target:
+  #         type: Value
+  #         value: 10k
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 30
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 20

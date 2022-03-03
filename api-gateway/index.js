@@ -35,6 +35,41 @@ app.get('/service/1',async (req, res) => {        //get requests to the root ("/
     }
 });
 
+app.get('/service/1/put-cpu-load',async (req, res) => {        //get requests to the root ("/") will route here
+    try{
+        console.log(`api gateway contacting service 1`);
+        console.log(`calling service 1 from api-gateway`,service1BaseUrl);
+        const service1Response = await axios.get(service1BaseUrl+"/put-cpu-load");
+        console.log(`service 1 response1`, service1Response.data);
+        res.send(service1Response.data);      //server responds by sending the index.html file to the client's browser
+                                                
+    }
+    catch(e){
+        console.log('error while accessing service 1',e);
+        res.send({
+            "Error":"error while contacting service 1",
+            
+        },500 )
+    }
+});
+
+app.get('/service/2/put-cpu-load',async (req, res) => {        //get requests to the root ("/") will route here
+    try{
+        console.log(`api gateway contacting service 2`);
+        console.log(`calling service 2 from api-gateway`,service2BaseUrl);
+        const service2Response = await axios.get(service2BaseUrl+"/put-cpu-load");
+        console.log(`service 1 response1`, service2Response.data);
+        res.send(service2Response.data);      //server responds by sending the index.html file to the client's browser
+                                                
+    }
+    catch(e){
+        console.log('error while accessing service 2',e);
+        res.send({
+            "Error":"error while contacting service 2",
+            
+        },500 )
+    }
+});
 app.get('/service/2',async (req, res) => {        //get requests to the root ("/") will route here
     try{
         console.log(`api gateway contacting service 2`);

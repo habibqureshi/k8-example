@@ -17,10 +17,17 @@ spec:
     spec:
       containers:
       - name: service-1
-        image: service-1/v3
+        image: service-1/v5
         imagePullPolicy: Never
         ports:
         - containerPort: 5000
+        resources:
+          limits:
+            cpu: "150m"
+            memory: "500Mi"
+          requests:
+            cpu: "100m"
+            memory: "100Mi"
         env:
         - name: NODE_ENV
           value: dev_from_k8_service_1

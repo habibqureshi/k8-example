@@ -12,6 +12,18 @@ console.log("hi from service 1");
                                                         //the .sendFile method needs the absolute path to the file, see: https://expressjs.com/en/4x/api.html#res.sendFile 
 });
 
+app.get('/put-cpu-load',(req,res)=>{
+    const size = 1000_0000_0
+    let count = 1
+    console.log('started');
+    for(let i=0;i<size;i++){
+        count = count+i;
+    }
+    console.log('ended');
+    res.send({
+        count
+    })
+})
 
 
 app.listen(port, () => {            //server starts listening for any attempts from a client to connect at port: {port}

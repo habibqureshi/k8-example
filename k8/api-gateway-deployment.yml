@@ -17,10 +17,15 @@ spec:
     spec:
       containers:
       - name: api-gateway
-        image: api-gateway/v3
+        image: api-gateway/v4
         imagePullPolicy: Never
         ports:
         - containerPort: 5000
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 250m
         env:
         - name: NODE_ENV
           value: dev_from_k8
