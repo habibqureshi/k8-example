@@ -9,7 +9,7 @@ spec:
   selector:
     matchLabels:
       app: service-1
-  replicas: 3  
+  replicas: 3
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -22,10 +22,30 @@ spec:
     spec:
       containers:
       - name: service-1
-        image: service-1/v5
+        image: service-1/v7
         imagePullPolicy: Never
         ports:
         - containerPort: 5000
+        lifecycle:
+          preStop:
+            exec:
+              command: ["sleep", "120"]
+        readinessProbe:
+          initialDelaySeconds: 1
+          periodSeconds: 2
+          timeoutSeconds: 1
+          successThreshold: 1
+          failureThreshold: 1
+          httpGet:
+            path: /health-check
+            port: 5000
+        livenessProbe:
+          httpGet:
+            path: /health-check
+            port: 5000
+          initialDelaySeconds: 3
+          periodSeconds: 3
+          failureThreshold: 2
         resources:
           limits:
             cpu: "150m"

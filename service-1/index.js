@@ -12,6 +12,13 @@ console.log("hi from service 1");
                                                         //the .sendFile method needs the absolute path to the file, see: https://expressjs.com/en/4x/api.html#res.sendFile 
 });
 
+
+app.get('/health-check', (req, res) => {      
+    console.log("checking health for service 1");
+        res.send({
+            message:"health check passed"
+        });     
+    });
 app.get('/put-cpu-load',(req,res)=>{
     const size = 1000_0000_0
     let count = 1

@@ -4,6 +4,7 @@ const port = 5000;
 
 
 
+
 app.get('/', (req, res) => {        //get requests to the root ("/") will route here
     console.log("hi from service 2");
     res.send({
@@ -12,6 +13,23 @@ app.get('/', (req, res) => {        //get requests to the root ("/") will route 
                                                         //the .sendFile method needs the absolute path to the file, see: https://expressjs.com/en/4x/api.html#res.sendFile 
 });
 
+let return200Health=true
+app.get('/flip-health-check', (req, res) => {       
+    return200Health=!return200Health
+
+    console.log("flip-health-check");
+    res.send({
+        message:"flip-health-check"
+    });      //server responds by sending the index.html file to the client's browser
+                                                        //the .sendFile method needs the absolute path to the file, see: https://expressjs.com/en/4x/api.html#res.sendFile 
+});
+app.get('/health-check', (req, res) => {      
+    console.log("checking health for service 2");
+
+        return200Health?res.send({
+            message:"health check passed"
+        }):res.send(500,{message:"not healthy"}) 
+    });
 app.get('/put-cpu-load',(req,res)=>{
     const size = 1000_0000_0
     let count = 1
