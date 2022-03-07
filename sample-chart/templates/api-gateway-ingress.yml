@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-gateway-ingress
+  namespace: {{ .Values.namespace}}
+spec:
+  defaultBackend:
+    resource:
+      apiGroup: k8s.example.com
+      kind: StorageBucket
+      name: static-assets
+  rules:
+  - host: "kube.com"
+    http:
+      paths:
+      # - path: /service/1
+      #   pathType: Prefix
+      #   backend:
+      #     service:
+      #       name: service-1-service
+      #       port:
+      #         number: 80
+      # - path: /service/2
+      #   pathType: Prefix
+      #   backend:
+      #     service:
+      #       name: service-2-service
+      #       port:
+      #         number: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: api-gateway-service
+            port:
+              number: 80

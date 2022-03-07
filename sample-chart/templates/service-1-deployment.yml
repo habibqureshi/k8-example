@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-1-deployment
+  namespace: {{ .Values.namespace}}
+  labels:
+    app: service-1
+spec:
+  selector:
+    matchLabels:
+      app: service-1
+  replicas: {{ .Values.deployments.replicaCount }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: {{.Values.rollingUpdate.maxSurge}}
+      maxUnavailable: {{.Values.rollingUpdate.maxUnavailable}}
+  template:
+    metadata:
+      labels:
+        app: service-1
+    spec:
+      containers:
+      - name: {{ .Values.images.service1.name }}
+        image: "{{.Values.images.service1.repository}}:{{.Values.images.service1.tag}}"
+        imagePullPolicy: {{.Values.images.pullPolicy}}
+        ports:
+        - containerPort: 5000
+        lifecycle:
+          preStop:
+            exec:
+              command: ["sleep", {{.Values.images.preStopSleepTime | quote}}]
+        readinessProbe:
+          {{- toYaml .Values.template.readiness | nindent 10 }}
+          httpGet:
+            path: /health-check
+            port: 5000
+        livenessProbe:
+          {{- toYaml .Values.template.liveness | nindent 10 }}
+          httpGet:
+            path: /health-check
+            port: 5000
+        resources:
+          limits:
+            cpu: "150m"
+            memory: "500Mi"
+          requests:
+            cpu: "100m"
+            memory: "100Mi"
+        env:
+        - name: NODE_ENV
+          value: dev_from_k8_service_1
+
