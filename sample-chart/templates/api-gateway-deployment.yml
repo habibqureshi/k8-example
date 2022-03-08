@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.images.service1.name }}
-        image: "{{.Values.images.service1.repository}}:{{.Values.images.service1.tag}}"
+        image: "{{.Values.images.apiGateway.repository}}:{{.Values.images.apiGateway.tag}}"
         imagePullPolicy: {{.Values.images.pullPolicy}}
         ports:
         - containerPort: 5000
