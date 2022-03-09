@@ -10,27 +10,15 @@ spec:
       kind: StorageBucket
       name: static-assets
   rules:
-  - host: "kube.com"
-    http:
-      paths:
-      # - path: /service/1
-      #   pathType: Prefix
-      #   backend:
-      #     service:
-      #       name: service-1-service
-      #       port:
-      #         number: 80
-      # - path: /service/2
-      #   pathType: Prefix
-      #   backend:
-      #     service:
-      #       name: service-2-service
-      #       port:
-      #         number: 80
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: api-gateway-service
-            port:
-              number: 80
+    {{- range .Values.ingress.hosts }}
+    - host: {{ .host | quote }}
+      http:
+        paths:
+          {{- range .paths }}
+          - path: {{ .path }}
+            pathType: {{ .pathType }}
+            backend:
+              service:
+                name: {{ .serviceName }}
+                port:
+                  number: {{ .servicePort }}
