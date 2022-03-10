@@ -6,7 +6,7 @@
 namespace: test-namespace
 
 deployments:
-  replicaCount: 1
+  replicaCount: 3
 
 rollingUpdate:
       maxSurge: 1
@@ -26,7 +26,7 @@ images:
   apiGateway:
     name: "api-gateway"
     repository: "api-gateway"
-    tag: v5
+    tag: v10
 
 
 template:
@@ -83,14 +83,17 @@ ingress:
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
- hosts:
-    - host: "kube.com"
-      paths:
-      - path: /
-        pathType: Prefix
-        serviceName: api-gateway-service
-        servicePort: 80
-  tls: []
+  hosts:
+  - host: "kube.com"
+    paths:
+    - path: /
+      pathType: ImplementationSpecific
+      serviceName: api-gateway-service
+      servicePort: 80
+
+
+
+tls: []
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
