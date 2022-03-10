@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 
-namespace: test--prod-namespace-1
+namespace: default
 
 deployments:
   replicaCount: 1
@@ -13,7 +13,7 @@ rollingUpdate:
       maxUnavailable: 0
 
 images:
-  pullPolicy: Never
+  pullPolicy: IfNotPresent
   preStopSleepTime: 30
   service1:
     name: "service-1"
