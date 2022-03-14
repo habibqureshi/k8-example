@@ -18,15 +18,15 @@ images:
   service1:
     name: "service-1"
     repository: "gcr.io/qerp-265216/service-1"
-    tag: v1
+    tag: v2
   service2:
     name: "service-1"
     repository: "gcr.io/qerp-265216/service-2"
-    tag: v1
+    tag: v2
   apiGateway:
     name: "api-gateway"
     repository: "gcr.io/qerp-265216/api-gateway"
-    tag: v1
+    tag: v2
 
 
 template:
