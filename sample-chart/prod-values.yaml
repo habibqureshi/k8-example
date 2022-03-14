@@ -13,7 +13,7 @@ rollingUpdate:
       maxUnavailable: 0
 
 images:
-  pullPolicy: IfNotPresent
+  pullPolicy: always
   preStopSleepTime: 30
   service1:
     name: "service-1"
